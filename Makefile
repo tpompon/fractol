@@ -6,13 +6,13 @@
 #    By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/13 08:57:37 by tpompon           #+#    #+#              #
-#    Updated: 2019/04/12 18:02:06 by tpompon          ###   ########.fr        #
+#    Updated: 2019/04/13 19:28:34 by tpompon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # General
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 NAME = fractol
 
 # Paths
@@ -44,24 +44,25 @@ OBJ = $(SRCS:.c=.o)
 # Rules
 all: $(NAME)
 
-%.o:%.c
-	gcc -c -o $@ $^
+%.o: %.c
+	gcc $(CFLAGS) -o $@ -c $^
 
 $(NAME): $(SRC)
 	@echo tpompon > auteur
 	@make -C ./libft all
 	$(CC) $(FLAGS) -I$(INC_PATH) -L$(LFT_PATH) -lft $(MLX) -o $(NAME) $(SRC)
-	@echo "\n$(REDBG)[Fractol]$(NC) \t$(BLUE) You can execute $(YELLOW)./$(NAME)$(NC) \t$(GREEN)[√]$(NC)\n"
+	@echo "\n$(REDBG)[Fract'ol]$(NC) \t$(BLUE) You can execute $(YELLOW)./$(NAME)$(NC) \t$(GREEN)[√]$(NC)\n"
+	@echo "$(WHITEBG)Renders available:$(NC) \t[Mandelbrot] [Julia]\n"
 
 clean:
 	@rm -f $(OBJS)
 	@make -C $(LFT_PATH) clean
-	@echo "\n$(REDBG)[Fractol]$(NC) \t$(BLUE)Objects files removed$(NC) \t$(GREEN)[√]$(NC)\n"
+	@echo "\n$(REDBG)[Fract'ol]$(NC) \t$(BLUE)Objects files removed$(NC) \t$(GREEN)[√]$(NC)\n"
 
 fclean: clean
 	@rm -f $(NAME)
 	@make -C $(LFT_PATH) fclean
-	@echo "\n$(REDBG)[Fractol]$(NC) \t$(BLUE)Executable removed$(NC) \t$(GREEN)[√]$(NC)\n"
+	@echo "\n$(REDBG)[Fract'ol]$(NC) \t$(BLUE)Executable removed$(NC) \t$(GREEN)[√]$(NC)\n"
 
 norme:
 	@echo "\n$(BLUE)Norminette - Sources files$(NC)\n"

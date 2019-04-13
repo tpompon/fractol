@@ -6,17 +6,13 @@
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 17:59:23 by tpompon           #+#    #+#             */
-/*   Updated: 2019/04/12 18:01:53 by tpompon          ###   ########.fr       */
+/*   Updated: 2019/04/13 20:13:46 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/*
-** Work in progress
-*/
-
-void	julia(t_env *data)
+void			julia(t_env *data)
 {
-	printf("WIP\n");
+	//
 }
