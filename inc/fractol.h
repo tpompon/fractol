@@ -6,7 +6,7 @@
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:16:50 by tpompon           #+#    #+#             */
-/*   Updated: 2019/04/13 21:18:58 by tpompon          ###   ########.fr       */
+/*   Updated: 2019/05/10 12:24:36 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,19 @@
 
 # define MANDELBROT 1
 # define JULIA 2
+# define BURNING_SHIP 3
 
-typedef struct		s_point
+typedef struct		s_fract
 {
-	double x;
-	double y;
-}					t_point;
+	int		x;
+	int		y;
+	int		iter;
+	double	c_r;
+	double	c_i;
+	double	z_r;
+	double	z_i;
+	double	tmp;
+}					t_fract;
 
 typedef struct		s_env
 {
@@ -65,6 +72,9 @@ typedef struct		s_env
 	double			move_y;
 	double			zoom;
 	int				select;
+	t_fract			*mandelbrot;
+	t_fract			*julia;
+	t_fract			*burning_ship;
 	char			*name;
 	void			*img_ptr;
 	unsigned int	*img_str;
@@ -74,8 +84,8 @@ typedef struct		s_env
 
 void	mandelbrot(t_env *data);
 void	julia(t_env *data);
+void	burning_ship(t_env *data);
 
-t_point	init_point(double x, double y);
 int		hexcolor(int r, int g, int b);
 void	ft_fill_pixel(int x, int y, int color, t_env *data);
 void	ft_fill_img_black(t_env *data);

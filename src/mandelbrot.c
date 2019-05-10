@@ -6,13 +6,13 @@
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 16:28:05 by tpompon           #+#    #+#             */
-/*   Updated: 2019/04/13 21:29:49 by tpompon          ###   ########.fr       */
+/*   Updated: 2019/05/10 13:09:39 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int		get_color_m(int iter)
+static int		get_color(int iter)
 {
 	int i;
 	int *colors;
@@ -42,37 +42,30 @@ static int		get_color_m(int iter)
 
 void			mandelbrot(t_env *data)
 {
-	int		x;
-	int		y;
-	int		iter;
-	double	c_real;
-	double	c_imag;
-	double	tmp;
-	t_point p;
-
-	y = 0;
-	while (y < WIN_HEIGHT)
+	data->mandelbrot->y = 0;
+	while (data->mandelbrot->y < WIN_HEIGHT)
 	{
-		x = 0;
-		while (x < WIN_WIDTH)
+		data->mandelbrot->x = 0;
+		while (data->mandelbrot->x < WIN_WIDTH)
 		{
-			c_real = (x - WIN_WIDTH / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_x;
-			c_imag = (y - WIN_HEIGHT / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_y;
-			p = init_point(0, 0);
-			iter = 0;
-			while (p.x * p.x + p.y * p.y <= 4 && iter < data->max_iter)
+			data->mandelbrot->c_r = (data->mandelbrot->x - WIN_WIDTH / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_x;
+			data->mandelbrot->c_i = (data->mandelbrot->y - WIN_HEIGHT / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_y;
+			data->mandelbrot->z_r = 0;
+			data->mandelbrot->z_i = 0;
+			data->mandelbrot->iter = 0;
+			while (data->mandelbrot->z_r * data->mandelbrot->z_r + data->mandelbrot->z_i * data->mandelbrot->z_i <= 4 && data->mandelbrot->iter < data->max_iter)
 			{
-				tmp = (p.x * p.x) - (p.y * p.y) + c_real;
-				p.y = (2.0 * p.x * p.y) + c_imag;
-				p.x = tmp;
-				iter++;
+				data->mandelbrot->tmp = (data->mandelbrot->z_r * data->mandelbrot->z_r) - (data->mandelbrot->z_i * data->mandelbrot->z_i) + data->mandelbrot->c_r;
+				data->mandelbrot->z_i = (2.0 * data->mandelbrot->z_r * data->mandelbrot->z_i) + data->mandelbrot->c_i;
+				data->mandelbrot->z_r = data->mandelbrot->tmp;
+				data->mandelbrot->iter++;
 			}
-			if (iter < data->max_iter)
-				ft_fill_pixel(x, y, get_color_m(iter), data);
+			if (data->mandelbrot->iter < data->max_iter)
+				ft_fill_pixel(data->mandelbrot->x, data->mandelbrot->y, get_color(data->mandelbrot->iter), data);
 			else
-				ft_fill_pixel(x, y, 0x000000, data);
-			x++;
+				ft_fill_pixel(data->mandelbrot->x, data->mandelbrot->y, 0x000000, data);
+			data->mandelbrot->x++;
 		}
-		y++;
+		data->mandelbrot->y++;
 	}
 }

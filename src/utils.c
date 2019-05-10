@@ -6,7 +6,7 @@
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 16:38:50 by tpompon           #+#    #+#             */
-/*   Updated: 2019/04/13 15:41:42 by tpompon          ###   ########.fr       */
+/*   Updated: 2019/05/10 11:52:37 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 int			hexcolor(int r, int g, int b)
 {
 	return ((r << 16) | (g << 8) | b);
-}
-
-t_point		init_point(double x, double y)
-{
-	t_point point;
-
-	point.x = x;
-	point.y = y;
-	return (point);
 }
 
 void		ft_fill_pixel(int x, int y, int color, t_env *data)
