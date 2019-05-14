@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   f.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 16:28:05 by tpompon           #+#    #+#             */
-/*   Updated: 2019/05/10 13:09:39 by tpompon          ###   ########.fr       */
+/*   Updated: 2019/05/13 12:15:49 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,30 @@ static int		get_color(int iter)
 
 void			mandelbrot(t_env *data)
 {
-	data->mandelbrot->y = 0;
-	while (data->mandelbrot->y < WIN_HEIGHT)
+	data->f->y = 0;
+	while (data->f->y < WIN_HEIGHT)
 	{
-		data->mandelbrot->x = 0;
-		while (data->mandelbrot->x < WIN_WIDTH)
+		data->f->x = 0;
+		while (data->f->x < WIN_WIDTH)
 		{
-			data->mandelbrot->c_r = (data->mandelbrot->x - WIN_WIDTH / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_x;
-			data->mandelbrot->c_i = (data->mandelbrot->y - WIN_HEIGHT / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_y;
-			data->mandelbrot->z_r = 0;
-			data->mandelbrot->z_i = 0;
-			data->mandelbrot->iter = 0;
-			while (data->mandelbrot->z_r * data->mandelbrot->z_r + data->mandelbrot->z_i * data->mandelbrot->z_i <= 4 && data->mandelbrot->iter < data->max_iter)
+			data->f->c_r = (data->f->x - WIN_WIDTH / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_x;
+			data->f->c_i = (data->f->y - WIN_HEIGHT / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_y;
+			data->f->z_r = 0;
+			data->f->z_i = 0;
+			data->f->iter = 0;
+			while (data->f->z_r * data->f->z_r + data->f->z_i * data->f->z_i <= 4 && data->f->iter < data->max_iter)
 			{
-				data->mandelbrot->tmp = (data->mandelbrot->z_r * data->mandelbrot->z_r) - (data->mandelbrot->z_i * data->mandelbrot->z_i) + data->mandelbrot->c_r;
-				data->mandelbrot->z_i = (2.0 * data->mandelbrot->z_r * data->mandelbrot->z_i) + data->mandelbrot->c_i;
-				data->mandelbrot->z_r = data->mandelbrot->tmp;
-				data->mandelbrot->iter++;
+				data->f->tmp = (data->f->z_r * data->f->z_r) - (data->f->z_i * data->f->z_i) + data->f->c_r;
+				data->f->z_i = (2.0 * data->f->z_r * data->f->z_i) + data->f->c_i;
+				data->f->z_r = data->f->tmp;
+				data->f->iter++;
 			}
-			if (data->mandelbrot->iter < data->max_iter)
-				ft_fill_pixel(data->mandelbrot->x, data->mandelbrot->y, get_color(data->mandelbrot->iter), data);
+			if (data->f->iter < data->max_iter)
+				ft_fill_pixel(data->f->x, data->f->y, get_color(data->f->iter), data);
 			else
-				ft_fill_pixel(data->mandelbrot->x, data->mandelbrot->y, 0x000000, data);
-			data->mandelbrot->x++;
+				ft_fill_pixel(data->f->x, data->f->y, 0x000000, data);
+			data->f->x++;
 		}
-		data->mandelbrot->y++;
+		data->f->y++;
 	}
 }

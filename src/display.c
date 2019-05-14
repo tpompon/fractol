@@ -6,7 +6,7 @@
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 16:21:21 by tpompon           #+#    #+#             */
-/*   Updated: 2019/05/10 12:24:20 by tpompon          ###   ########.fr       */
+/*   Updated: 2019/05/13 17:06:25 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,15 @@ void	ft_display(t_env *data)
 		julia(data);
 	else if (data->select == BURNING_SHIP)
 		burning_ship(data);
+	else if (data->select == TRICORN)
+		tricorn(data);
+	else if (data->select == CLOVER)
+		clover(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	hud(data);
 	mlx_hook(data->win_ptr, 4, 0, mouse_press, data);
 	mlx_hook(data->win_ptr, 2, 0, key_press, data);
 	mlx_hook(data->win_ptr, 17, 0, exit_hook, data);
+	mlx_hook(data->win_ptr, 6, 0, mouse_move, data);
 	mlx_loop(data->mlx_ptr);
 }

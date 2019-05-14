@@ -6,7 +6,7 @@
 #    By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/13 08:57:37 by tpompon           #+#    #+#              #
-#    Updated: 2019/05/10 12:25:33 by tpompon          ###   ########.fr        #
+#    Updated: 2019/05/13 15:31:33 by tpompon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ SRC =	src/main.c \
 		src/mandelbrot.c \
 		src/julia.c \
 		src/burning_ship.c \
+		src/tricorn.c \
+		src/clover.c \
 		src/utils.c
 
 OBJ = $(SRCS:.c=.o)
@@ -53,7 +55,7 @@ $(NAME): $(SRC)
 	@make -C ./libft all
 	$(CC) $(FLAGS) -I$(INC_PATH) -L$(LFT_PATH) -lft $(MLX) -o $(NAME) $(SRC)
 	@echo "\n$(REDBG)[Fract'ol]$(NC) \t$(BLUE) You can execute $(YELLOW)./$(NAME)$(NC) \t$(GREEN)[√]$(NC)\n"
-	@echo "$(WHITEBG)Renders available:$(NC) \t[Mandelbrot] [Julia] [Burning_Ship]\n"
+	@echo "$(WHITEBG)Renders available:$(NC) \t[Mandelbrot] [Julia] [Burning_Ship] [Tricorn] [Clover]\n"
 
 clean:
 	@rm -f $(OBJS)
