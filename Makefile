@@ -6,7 +6,7 @@
 #    By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/13 08:57:37 by tpompon           #+#    #+#              #
-#    Updated: 2019/05/13 15:31:33 by tpompon          ###   ########.fr        #
+#    Updated: 2019/09/10 16:57:12 by tpompon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ YELLOW=\x1b[33;01m
 # Sources and Objects files
 SRC =	src/main.c \
 		src/event.c \
+		src/keyboard.c \
+		src/mouse.c \
 		src/display.c \
 		src/mandelbrot.c \
 		src/julia.c \

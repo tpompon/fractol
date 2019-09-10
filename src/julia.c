@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f.c                                            :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/12 17:59:23 by tpompon           #+#    #+#             */
-/*   Updated: 2019/05/13 12:16:12 by tpompon          ###   ########.fr       */
+/*   Created: 2019/09/10 16:21:42 by tpompon           #+#    #+#             */
+/*   Updated: 2019/09/10 16:21:43 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,39 @@ static int		get_color(int iter)
 	return (colors[i]);
 }
 
-void			julia(t_env *data)
+static void		initialize_d(t_env *d)
 {
-	data->f->y = 0;
-	while (data->f->y < WIN_HEIGHT)
-	{
-		data->f->x = 0;
-		while (data->f->x < WIN_WIDTH)
-		{
-			data->f->z_r = (data->f->x - WIN_WIDTH / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_x;
-			data->f->z_i = (data->f->y - WIN_HEIGHT / 2.0) * (4.0 / WIN_WIDTH / data->zoom) + data->move_y;
-			data->f->iter = 0;
-			while (data->f->z_r * data->f->z_r + data->f->z_i * data->f->z_i <= 4 && data->f->iter < data->max_iter)
-			{
-				data->f->tmp = (data->f->z_r * data->f->z_r) - (data->f->z_i * data->f->z_i) + data->f->c_r;
-				data->f->z_i = (2.0 * data->f->z_r * data->f->z_i) + data->f->c_i;
-				data->f->z_r = data->f->tmp;
-				data->f->iter++;
-			}
-			if (data->f->iter < data->max_iter)
-				ft_fill_pixel(data->f->x, data->f->y, get_color(data->f->iter), data);
-			else
-				ft_fill_pixel(data->f->x, data->f->y, 0x000000, data);
-			data->f->x++;
-		}
-		data->f->y++;
-	}
+	d->f->z_r = (d->f->x - WIN_WIDTH / 2.0)
+		* (4.0 / WIN_WIDTH / d->zoom) + d->move_x;
+	d->f->z_i = (d->f->y - WIN_HEIGHT / 2.0)
+		* (4.0 / WIN_WIDTH / d->zoom) + d->move_y;
+	d->f->iter = 0;
 }
 
+void			julia(t_env *d)
+{
+	d->f->y = 0;
+	while (d->f->y < WIN_HEIGHT)
+	{
+		d->f->x = 0;
+		while (d->f->x < WIN_WIDTH)
+		{
+			initialize_d(d);
+			while (d->f->z_r * d->f->z_r + d->f->z_i * d->f->z_i <= 4
+				&& d->f->iter < d->max_iter)
+			{
+				d->f->tmp = (d->f->z_r * d->f->z_r) - (d->f->z_i * d->f->z_i)
+					+ d->f->c_r;
+				d->f->z_i = (2.0 * d->f->z_r * d->f->z_i) + d->f->c_i;
+				d->f->z_r = d->f->tmp;
+				d->f->iter++;
+			}
+			if (d->f->iter < d->max_iter)
+				ft_fill_pixel(d->f->x, d->f->y, get_color(d->f->iter), d);
+			else
+				ft_fill_pixel(d->f->x, d->f->y, 0x000000, d);
+			d->f->x++;
+		}
+		d->f->y++;
+	}
+}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f.c                                     :+:      :+:    :+:   */
+/*   burning_ship.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/10 12:20:51 by tpompon           #+#    #+#             */
-/*   Updated: 2019/05/13 13:02:39 by tpompon          ###   ########.fr       */
+/*   Created: 2019/09/10 16:23:08 by tpompon           #+#    #+#             */
+/*   Updated: 2019/09/10 16:23:09 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,42 @@ static int		get_color(int iter)
 	return (colors[i]);
 }
 
-void			burning_ship(t_env *data)
+static void		initialize_d(t_env *d)
 {
-	data->f->y = 0;
-	while (data->f->y < WIN_HEIGHT)
+	d->f->c_r = (d->f->x - WIN_WIDTH / 2.0)
+		* (4.0 / WIN_WIDTH * 0.03 / d->zoom) - 1.755 + d->move_x;
+	d->f->c_i = (d->f->y - WIN_HEIGHT / 2.0)
+		* (4.0 / WIN_WIDTH * 0.03 / d->zoom) - 0.035 + d->move_y;
+	d->f->z_r = 0;
+	d->f->z_i = 0;
+	d->f->iter = 0;
+}
+
+void			burning_ship(t_env *d)
+{
+	d->f->y = 0;
+	while (d->f->y < WIN_HEIGHT)
 	{
-		data->f->x = 0;
-		while (data->f->x < WIN_WIDTH)
+		d->f->x = 0;
+		while (d->f->x < WIN_WIDTH)
 		{
-			data->f->c_r = (data->f->x - WIN_WIDTH / 2.0) * (4.0 / WIN_WIDTH * 0.03 / data->zoom) - 1.755 + data->move_x;
-			data->f->c_i = (data->f->y - WIN_HEIGHT / 2.0) * (4.0 / WIN_WIDTH * 0.03 / data->zoom) - 0.035 + data->move_y;
-			data->f->z_r = 0;
-			data->f->z_i = 0;
-			data->f->iter = 0;
-			while (fabs(data->f->z_r) * fabs(data->f->z_r) + fabs(data->f->z_i) * fabs(data->f->z_i) <= 4 && data->f->iter < data->max_iter)
+			initialize_d(d);
+			while (fabs(d->f->z_r) * fabs(d->f->z_r) + fabs(d->f->z_i)
+				* fabs(d->f->z_i) <= 4 && d->f->iter < d->max_iter)
 			{
-				data->f->tmp = (fabs(data->f->z_r) * fabs(data->f->z_r)) - (fabs(data->f->z_i) * fabs(data->f->z_i)) + data->f->c_r;
-				data->f->z_i = (2.0 * fabs(data->f->z_r) * fabs(data->f->z_i)) + data->f->c_i;
-				data->f->z_r = data->f->tmp;
-				data->f->iter++;
+				d->f->tmp = (fabs(d->f->z_r) * fabs(d->f->z_r))
+					- (fabs(d->f->z_i) * fabs(d->f->z_i)) + d->f->c_r;
+				d->f->z_i = (2.0 * fabs(d->f->z_r)
+					* fabs(d->f->z_i)) + d->f->c_i;
+				d->f->z_r = d->f->tmp;
+				d->f->iter++;
 			}
-			if (data->f->iter < data->max_iter)
-				ft_fill_pixel(data->f->x, data->f->y, get_color(data->f->iter), data);
+			if (d->f->iter < d->max_iter)
+				ft_fill_pixel(d->f->x, d->f->y, get_color(d->f->iter), d);
 			else
-				ft_fill_pixel(data->f->x, data->f->y, 0x000000, data);
-			data->f->x++;
+				ft_fill_pixel(d->f->x, d->f->y, 0x000000, d);
+			d->f->x++;
 		}
-		data->f->y++;
+		d->f->y++;
 	}
 }

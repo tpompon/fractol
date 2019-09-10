@@ -6,7 +6,7 @@
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:53:22 by tpompon           #+#    #+#             */
-/*   Updated: 2019/03/29 15:49:22 by tpompon          ###   ########.fr       */
+/*   Updated: 2019/09/10 17:09:23 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # include <stdlib.h>
 # include <string.h>
 
-#include <stdio.h>
+# include <stdio.h>
 
 # define SUCCESS 1
 # define ERROR -1
 # define END 0
 
-#define SP(x) x == '\t' || x == '\n' || x == ' '
+# define SP(x) x == '\t' || x == '\n' || x == ' '
 
 # define BUFF_SIZE 32
 

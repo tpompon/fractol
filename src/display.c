@@ -6,7 +6,7 @@
 /*   By: tpompon <tpompon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 16:21:21 by tpompon           #+#    #+#             */
-/*   Updated: 2019/05/13 17:06:25 by tpompon          ###   ########.fr       */
+/*   Updated: 2019/09/10 16:27:36 by tpompon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	hud(t_env *data)
 	char *max_iter;
 
 	max_iter = ft_itoa(data->max_iter);
-	if (!(str = malloc(sizeof(char) * (ft_strlen(max_iter) + ft_strlen("Iterations: ")) + 1)))
+	if (!(str = malloc(sizeof(char) * (ft_strlen(max_iter)
+		+ ft_strlen("Iterations: ")) + 1)))
 		ft_perror();
 	ft_strcpy(str, "Iterations: ");
 	ft_strcat(str, max_iter);
